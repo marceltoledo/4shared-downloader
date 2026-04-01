@@ -62,4 +62,11 @@ Any of these formats work:
 https://www.4shared.com/folder/F6YhfbPq/_online.html
 https://www.4shared.com/folder/F6YhfbPq/FolderName.html
 and others too..
+
+## Support & Donations
+If you find this tool useful and would like to support me, consider donating:
+
+PayPal: [https://www.paypal.me/RonaldsServices]
+Bitcoin (BTC): bc1qpdnu3mcl96g8puru982ndq3kyft7f9srjnx3mt
+Your support is greatly appreciated!
 ```
