@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - 4shared Downloader{% endblock %}
+{% block content %}
+
+<section>
+  <h2>Add account</h2>
+  <form id="add-account-form">
+    <input type="url" name="url" placeholder="https://www.4shared.com/folder/..." required>
+    <button type="submit">Add</button>
+  </form>
+</section>
+
+<section>
+  <h2>Accounts</h2>
+  {% if not accounts %}
+  <p class="empty">No accounts yet — add a 4shared folder URL above.</p>
+  {% else %}
+  <form id="run-form">
+    <table>
+      <thead>
+        <tr><th></th><th>Folder ID</th><th>URL</th><th>History</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for a in accounts %}
+        <tr>
+          <td><input type="checkbox" name="folder_ids" value="{{ a.folder_id }}" {% if a.history_count == 0 %}checked{% endif %}></td>
+          <td>{{ a.folder_id }}</td>
+          <td class="url"><a href="{{ a.url }}" target="_blank" rel="noopener">{{ a.url }}</a></td>
+          <td>
+            {% if a.history_count > 0 %}
+            <a href="/files/{{ a.folder_id }}">{{ a.history_count }} file(s)</a>
+            {% else %}
+            0
+            {% endif %}
+          </td>
+          <td><button type="button" class="delete-account" data-folder-id="{{ a.folder_id }}">Remove</button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <fieldset class="run-options">
+      <legend>Run options (optional)</legend>
+      <label>Filename contains
+        <input type="text" name="name_filter" placeholder="e.g. vacation">
+      </label>
+      <label>File type
+        <select name="file_type">
+          <option value="all" selected>All files</option>
+          <option value="video">Video</option>
+          <option value="audio">Audio</option>
+        </select>
+      </label>
+      <label>Limit per account
+        <input type="number" name="limit" min="1" placeholder="No limit">
+      </label>
+      <label>Save to folder
+        <input type="text" name="dest_dir" placeholder="Default: downloads/&lt;folder id&gt;">
+      </label>
+      <p class="hint">
+        "Save to folder" must be an absolute path. In Docker it must also be volume-mounted
+        into the container (e.g. <code>-v /host/path:/host/path</code>) or it won't be reachable.
+        Download history is tracked per account regardless of destination, so re-running an
+        account later with a different folder won't re-fetch files it already downloaded elsewhere.
+      </p>
+    </fieldset>
+
+    <button type="submit">Run selected</button>
+  </form>
+  {% endif %}
+</section>
+
+<section>
+  <h2>Runs</h2>
+  {% if not runs %}
+  <p class="empty">No runs yet.</p>
+  {% else %}
+  <ul class="runs">
+    {% for r in runs %}
+    <li><a href="/runs/{{ r.id }}">{{ r.id[:8] }}</a> — <span class="status status-{{ r.status.value }}">{{ r.status.value }}</span> ({{ r.folder_ids | length }} account(s))</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>
+
+{% endblock %}
