@@ -1,0 +1,9 @@
+downloads/
+history_files/
+download_log.txt
+metadata.jsonl
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
