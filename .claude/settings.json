@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python cli.py)",
+      "Bash(python3 cli.py)",
+      "Bash(pip install -r requirements.txt)",
+      "Bash(playwright install chromium)",
+      "Bash(uvicorn app.main:app --reload)",
+      "Bash(pytest)",
+      "Bash(pytest *)",
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Bash(git diff --*)",
+      "Bash(git log)",
+      "Bash(git log --*)"
+    ]
+  }
+}

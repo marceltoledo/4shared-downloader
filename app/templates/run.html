@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Run {{ job_id[:8] }} - 4shared Downloader{% endblock %}
+{% block content %}
+
+<p><a href="/">&larr; Back to dashboard</a></p>
+
+<h2>Run {{ job_id[:8] }}</h2>
+<p>Status: <span id="run-status" class="status">loading…</span>
+   <button id="cancel-run" type="button" data-job-id="{{ job_id }}">Cancel</button></p>
+
+<pre id="log" class="log"></pre>
+
+{% endblock %}
+{% block scripts %}
+<script>
+  window.DOWNLOADER_JOB_ID = {{ job_id | tojson }};
+</script>
+{% endblock %}

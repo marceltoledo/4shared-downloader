@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Files - {{ folder_id }} - 4shared Downloader{% endblock %}
+{% block content %}
+
+<p><a href="/">&larr; Back to dashboard</a></p>
+
+<h2>Files for {{ folder_id }}</h2>
+
+{% if not files %}
+<p class="empty">No files downloaded yet for this account.</p>
+{% else %}
+<ul class="files">
+  {% for f in files %}
+  <li><a href="/api/accounts/{{ folder_id }}/files/{{ f }}">{{ f }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}
